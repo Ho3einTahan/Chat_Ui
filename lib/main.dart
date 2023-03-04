@@ -1,68 +1,30 @@
-import 'package:chat_ui/BottomNav/BottomNavigation.dart';
-import 'package:chat_ui/BottomNav/FloatingActionButton.dart';
-import 'package:chat_ui/Chat/Chat_Primary.dart';
+import 'package:chat_ui/BottomNav_Provider.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'AppBar/AppBarPrimary.dart';
+import 'package:provider/provider.dart';
+import 'BottomNav/BottomNavPrimary.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(
+    MultiProvider(providers: [
+      ChangeNotifierProvider(create: (context) => BottomNav_Provider()),
+    ], child: MyApp()),
+  );
 }
 
 class MyApp extends StatelessWidget {
   MyApp({super.key});
 
+
   @override
   Widget build(BuildContext context) {
+    final BottomNavProvider = Provider.of<BottomNav_Provider>(context);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.topRight,
-            colors: [
-              Color(0xffCBF1FA),
-              Color(0xffEDFAF8),
-            ],
+      home: Scaffold(
+        body:BottomNavProvider.ScreenReturn(),
+        bottomNavigationBar: BottomNavPrimary(),
           ),
-        ),
-        child: Scaffold(
-          backgroundColor: Colors.transparent,
-          floatingActionButton: FloatingActionButtonPrimary(),
-          appBar: AppBarPrimary(),
-          bottomNavigationBar: BottomNavigation(),
-          body: Column(
-            children: [
-              Container(
-                height: 110,
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                    colors: [
-                      Color(0xffCBF1FA),
-                      Color(0xffCCF6B4),
-                      Color(0xffEDFAF8),
-                    ],
-                  ),
-                ),
-                child: getStoryBar(),
-              ),
-              Container(
-                height: 349,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                    topRight: Radius.circular(40),
-                    topLeft: Radius.circular(40),
-                  ),
-                ),
-                child: Chat_Primary(),
-              ),
-            ],
-          ),
-        ),
-      ),
     );
   }
 }

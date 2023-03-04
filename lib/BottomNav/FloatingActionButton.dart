@@ -1,15 +1,8 @@
 import 'package:flutter/material.dart';
 
-class FloatingActionButtonPrimary extends StatefulWidget {
+class FloatingActionButtonPrimary extends StatelessWidget {
   FloatingActionButtonPrimary({Key? key}) : super(key: key);
 
-  @override
-  State<FloatingActionButtonPrimary> createState() =>
-      _FloatingActionButtonPrimaryState();
-}
-
-class _FloatingActionButtonPrimaryState
-    extends State<FloatingActionButtonPrimary> {
   @override
   Widget build(BuildContext context) {
     return Container(

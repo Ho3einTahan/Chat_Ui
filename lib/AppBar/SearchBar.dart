@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
-class SearchBar extends StatefulWidget {
+class SearchBar extends StatelessWidget {
    SearchBar({Key? key}) : super(key: key);
 
-  @override
-  State<SearchBar> createState() => _SearchBarState();
-}
-
-class _SearchBarState extends State<SearchBar> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -18,7 +13,6 @@ class _SearchBarState extends State<SearchBar> {
         borderRadius: BorderRadius.circular(40),
       ),
       child: IconButton(onPressed: () {
-
       }, icon:Icon(Icons.search_sharp,color: Colors.black),),
     );
   }
