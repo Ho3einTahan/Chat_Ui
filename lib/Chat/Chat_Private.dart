@@ -1,28 +1,30 @@
-
 import 'package:chat_ui/AppBar/Appbar_Chat_Private.dart';
+import 'package:chat_ui/Providers/BottomNav.Provider_Private.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:custom_clippers/custom_clippers.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
+
 class Chat_Private extends StatefulWidget {
   Chat_Private(
-      {Key? key, required this.name, required this.image, required this.Title})
+      {Key? key, required this.name, required this.image, required this.Title,required this.OfflineState})
       : super(key: key);
   String? name;
   String? image;
-  String? Title;@override
+  String? Title;
+  String? OfflineState;
+  @override
   State<Chat_Private> createState() => _Chat_PrivateState();
 }
 
 class _Chat_PrivateState extends State<Chat_Private> {
-  bool Visibitly = false;
-  final TextEditingController SendBox = TextEditingController();
-  final ScrollController controller = ScrollController();
   Color MickColor = Colors.grey.shade100;
   String name = "";
   String image = "";
   String title = "";
   List titleList = [];
+  String OfflineState="";
   @override
   void initState() {
     // TODO: implement initState
@@ -31,13 +33,17 @@ class _Chat_PrivateState extends State<Chat_Private> {
     image = widget.image!;
     title = widget.Title!;
     titleList = [title];
+    OfflineState=widget.OfflineState!;
   }
+
   Widget build(BuildContext context) {
+    final BottomNavProvider = Provider.of<BottomNavProvider_Private>(context);
     final heightScreen = MediaQuery.of(context).size.height;
+    BottomNavProvider.titleList = titleList;
     return Scaffold(
-      bottomNavigationBar: BottomNavPrivate(),
+      bottomNavigationBar: BottomNavPrivate(BottomNavProvider),
       backgroundColor: Color(0xffececec),
-      appBar: AppBar_Chat(context, name, image),
+      appBar: AppBar_Chat(context, name, image,OfflineState),
       body: SafeArea(
         child: Container(
           width: double.infinity,
@@ -50,8 +56,8 @@ class _Chat_PrivateState extends State<Chat_Private> {
             ),
           ),
           child: ListView.builder(
-            controller: controller,
-            itemCount: titleList.length,
+            controller: BottomNavProvider.controller,
+            itemCount: BottomNavProvider.titleList.length,
             itemBuilder: (context, index) {
               return Column(
                 children: [
@@ -65,7 +71,8 @@ class _Chat_PrivateState extends State<Chat_Private> {
       ),
     );
   }
-  Widget ResendMessage(){
+
+  Widget ResendMessage() {
     return Padding(
       padding: const EdgeInsets.only(right: 130, left: 10, top: 10, bottom: 10),
       child: ClipPath(
@@ -75,7 +82,7 @@ class _Chat_PrivateState extends State<Chat_Private> {
           color: Color(0xffCCF6C4),
           child: Column(
             children: [
-              Text("سلام به درک", textAlign: TextAlign.right),
+              Text("سلام قربان شما بفرما", textAlign: TextAlign.right),
               Row(
                 children: [
                   Spacer(),
@@ -88,13 +95,15 @@ class _Chat_PrivateState extends State<Chat_Private> {
       ),
     );
   }
+
   Widget SendMessage(String TextMessage) {
     return Padding(
       padding: const EdgeInsets.only(left: 130, top: 10, right: 10),
       child: ClipPath(
         clipper: LowerNipMessageClipper(MessageType.send),
         child: Container(
-          padding:const EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 16),
+          padding:
+              const EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 16),
           color: Color(0xffCCF1FA),
           child: Column(
             children: [
@@ -113,7 +122,7 @@ class _Chat_PrivateState extends State<Chat_Private> {
     );
   }
 
-  Widget BottomNavPrivate() {
+  Widget BottomNavPrivate(BottomNavProvider) {
     return Padding(
       padding:
           EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
@@ -127,38 +136,20 @@ class _Chat_PrivateState extends State<Chat_Private> {
               Expanded(
                 flex: 6,
                 child: TextField(
-                  controller: SendBox,
+                  controller: BottomNavProvider.SendBox,
                   minLines: 1,
                   maxLines: 3,
                   onChanged: (value) {
-                    if (value.isEmpty == false) {
-                      setState(() {
-                        Visibitly = true;
-                      });
-                    } else {
-                      setState(() {
-                        Visibitly = false;
-                      });
-                    }
+                    BottomNavProvider.onChange(value);
                   },
                   decoration: InputDecoration(
                     suffixIcon: Padding(
                       padding: const EdgeInsets.only(right: 5),
                       child: Visibility(
-                          visible: Visibitly,
+                          visible: BottomNavProvider.Visibitly,
                           child: GestureDetector(
                               onTap: () {
-                                if (SendBox.text != "") {
-                                  setState(() {
-                                    titleList!.add(SendBox.text);
-                                    SendBox.clear();
-                                    controller!.animateTo(
-                                        controller!.position.maxScrollExtent +
-                                            250,
-                                        duration: Duration(milliseconds: 600),
-                                        curve: Curves.easeIn);
-                                  });
-                                }
+                                BottomNavProvider.sendButton();
                               },
                               child: Icon(Icons.send_sharp))),
                     ),
@@ -166,8 +157,7 @@ class _Chat_PrivateState extends State<Chat_Private> {
                     ////
                     ////
                     prefixIcon: GestureDetector(
-                        onTap: () {
-                        },
+                        onTap: () {},
                         child: Icon(CupertinoIcons.paperclip, size: 28)),
                     /////
                     ////
@@ -192,7 +182,6 @@ class _Chat_PrivateState extends State<Chat_Private> {
                       setState(() {
                         MickColor = Colors.blue;
                       });
-
                     },
                     onLongPressEnd: (details) {
                       setState(() {
@@ -208,4 +197,3 @@ class _Chat_PrivateState extends State<Chat_Private> {
     );
   }
 }
-

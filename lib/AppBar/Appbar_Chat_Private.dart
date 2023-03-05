@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 PreferredSizeWidget AppBar_Chat(
-    BuildContext context, String name, String image) {
+    BuildContext context, String name, String image,String OfflineState) {
   return AppBar(
     elevation: 0,
     backgroundColor: Color(0xffeee8e8),
@@ -41,7 +41,7 @@ PreferredSizeWidget AppBar_Chat(
             ),
             child: Center(
                 child: Text(
-              "Online",
+              OfflineState,
               style: TextStyle(
                 color: Colors.green.shade300,
               ),
