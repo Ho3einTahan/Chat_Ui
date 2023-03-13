@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import '../Providers/Contacts.Provider.dart';
+import 'CustomeSearch_Contact.dart';
 
 class Contacts_Page extends StatelessWidget {
   const Contacts_Page({Key? key}) : super(key: key);
@@ -11,7 +12,7 @@ class Contacts_Page extends StatelessWidget {
   Widget build(BuildContext context) {
     final ContactsProvider=Provider.of<Contacts_Provider>(context);
     return  Scaffold(
-          appBar: searchBar(ContactsProvider),
+          appBar: searchBar(ContactsProvider,context),
           body: ListView.separated(
             shrinkWrap: false,
             itemCount: ContactsProvider.Title.length,
@@ -24,35 +25,18 @@ class Contacts_Page extends StatelessWidget {
       }
   }
 
-  PreferredSizeWidget searchBar(ContactsProvider) {
+  PreferredSizeWidget searchBar(ContactsProvider,BuildContext context) {
     return AppBar(
       backgroundColor: Colors.grey.shade50,
       elevation: 0,
-      title: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(19),
+      actions: [
+        Padding(
+          padding: const EdgeInsets.only(right: 16),
+          child: IconButton(onPressed: () {
+            showSearch(context: context, delegate:CustomSearch_Contact() );
+          }, icon: Icon(Icons.search,size: 30,color: Colors.black),),
         ),
-        height: 45,
-        child: Directionality(
-          textDirection: TextDirection.rtl,
-          child: Consumer<Contacts_Provider>(builder: (context, ContactsProvider, child) {
-            return TextField(
-              onChanged: (value) {
-                ContactsProvider.Search_Contact(value);
-                print(value);
-              },
-              decoration: InputDecoration(
-                hintText: "مخاطب خود را پیدا کنید.",
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(18),
-                ),
-                focusedBorder:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(18)),
-              ),
-            );
-          },),
-        ),
-      ),
+      ],
     );
   }
 

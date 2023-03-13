@@ -153,15 +153,9 @@ class _Chat_PrivateState extends State<Chat_Private> {
                               },
                               child: Icon(Icons.send_sharp))),
                     ),
-                    /////
-                    ////
-                    ////
                     prefixIcon: GestureDetector(
                         onTap: () {},
                         child: Icon(CupertinoIcons.paperclip, size: 28)),
-                    /////
-                    ////
-                    /////
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(40),
                     ),

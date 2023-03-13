@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+
+import '../Chat/CustomSearch_Chat.dart';
+import '../Contacts/CustomeSearch_Contact.dart';
 class SearchBar extends StatelessWidget {
    SearchBar({Key? key}) : super(key: key);
 
@@ -13,6 +16,7 @@ class SearchBar extends StatelessWidget {
         borderRadius: BorderRadius.circular(40),
       ),
       child: IconButton(onPressed: () {
+        showSearch(context: context, delegate:CustomSearch_Chat() );
       }, icon:Icon(Icons.search_sharp,color: Colors.black),),
     );
   }

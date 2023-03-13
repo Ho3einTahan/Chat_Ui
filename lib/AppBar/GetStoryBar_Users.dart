@@ -1,37 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../Constant/MyDataList.dart';
 import 'StoryView.dart';
 
 class getStoryBar extends StatelessWidget {
   getStoryBar({Key? key}) : super(key: key);
-
-  List<String> DataImage = [
-    "story_1",
-    "story_2",
-    "story_3",
-    "story_4",
-    "story_5",
-    "story_6",
-    "story_7",
-    "story_8",
-    "story_9",
-    "story_10"
-  ];
-
-  List<String> DataName = [
-    "Me",
-    "Esfelle",
-    "Colton",
-    "Cameron",
-    "Eleanor",
-    "Miles",
-    "Lucy",
-    "Mae",
-    "James",
-    "Lily",
-  ];
-
   bool Visibitly = true;
 
   @override
@@ -56,10 +30,14 @@ class getStoryBar extends StatelessWidget {
               padding: const EdgeInsets.only(left: 10, right: 10),
               child: GestureDetector(
                 onTap: () {
+
                   Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) {
-                      return Storyview_Page();
-                    }),
+                    MaterialPageRoute(
+                      builder: (context) => Storyview_Page(
+                          index: index,
+                          Image: DataImage[index],
+                          Name:StoryBar_title[index]),
+                    ),
                   );
                 },
                 child: Container(
@@ -87,10 +65,10 @@ class getStoryBar extends StatelessWidget {
         ),
         Padding(
           padding: EdgeInsets.only(top: 8),
-          child: Text(DataName[index],
+          child: Text(StoryBar_title[index],
               style: TextStyle(
-                fontWeight: FontWeight.w700,
-                fontSize: 15,
+                fontWeight: FontWeight.w800,
+                fontSize: 10,
               )),
         ),
       ],

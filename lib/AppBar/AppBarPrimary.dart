@@ -1,9 +1,7 @@
 import 'package:chat_ui/AppBar/ProfileImage.dart';
 import 'package:chat_ui/AppBar/SearchBar.dart';
-import 'package:chat_ui/AppBar/StoryView.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:story_view/story_view.dart';
 
 PreferredSizeWidget AppBarPrimary() {
   return AppBar(

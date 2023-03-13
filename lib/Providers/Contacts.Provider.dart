@@ -14,8 +14,8 @@ class Contacts_Provider extends ChangeNotifier {
     "story_10"
   ];
   List<String> Title = [
-    "حسین gطحان",
-    "معین بhاغشیخی",
+    "حسین طحان",
+    "معین باغشیخی",
     "امین یزدان دوست",
     "محمد مقدم",
     "مهدی حبیبی زاده",
