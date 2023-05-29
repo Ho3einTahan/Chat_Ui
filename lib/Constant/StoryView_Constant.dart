@@ -19,12 +19,6 @@ List<StoryItem> storyItem1 = [
       url: "https://i.ibb.co/ZNJ93jt/images.jpg", controller: controller),
 ];
 List<StoryItem> storyItem2 = [
-  StoryItem.text(
-      title: "test1",
-      backgroundColor: Colors.yellow,
-      textStyle: TextStyle(
-        fontSize: 18,
-      )),
   StoryItem.pageImage(
     imageFit: BoxFit.contain,
     url: "https://i.ibb.co/JHztK87/images-1.jpg",
@@ -39,12 +33,6 @@ List<StoryItem> storyItem2 = [
       url: "https://i.ibb.co/TwbrKZB/download-2.jpg", controller: controller),
 ];
 List<StoryItem> storyItem3 = [
-  StoryItem.text(
-      title: "test2",
-      backgroundColor: Colors.yellow,
-      textStyle: TextStyle(
-        fontSize: 18,
-      )),
   StoryItem.pageImage(
       imageFit: BoxFit.contain,
       url: "https://i.ibb.co/8XTXwLk/maxresdefault.jpg",
@@ -57,7 +45,7 @@ List<StoryItem> storyItem3 = [
 ];
 List<StoryItem> storyItem4 = [
   StoryItem.text(
-      title: "test3",
+      title: "سلام یه تمام فالور های عزیز",
       backgroundColor: Colors.yellow,
       textStyle: TextStyle(
         fontSize: 18,

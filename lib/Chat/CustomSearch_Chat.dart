@@ -1,46 +1,10 @@
 import 'package:chat_ui/Constant/MyDataList.dart';
 import 'package:flutter/material.dart';
 
-import 'Chat_Primary.dart';
 import 'Chat_Private.dart';
 
 class CustomSearch_Chat extends SearchDelegate {
-  List<String> title = [
-    "حسین طحان",
-    "معین باغشیخی",
-    "امین یزدان دوست",
-    "محمد مقدم",
-    "مهدی حبیبی زاده",
-    "مانی تاریخ",
-    "آرش جعفری",
-    "سینا زین ساز",
-    "علی جوشقانی",
-    "عرفان کچویی"
-  ];
-  List<String> DataImage = [
-    "story_1",
-    "story_2",
-    "story_3",
-    "story_4",
-    "story_5",
-    "story_6",
-    "story_7",
-    "story_8",
-    "story_9",
-    "story_10"
-  ];
-  List<String> SubTitle = [
-    "سلام خوبی؟ چه خبر",
-    "فردا کلاس میای",
-    "دلار شد 50 هزار تومن",
-    "فارسی درس چند رو باید بنویسیم؟",
-    " Figmaمحدودیت دسترسی داره",
-    "فیلتر شکن های سامان کار نمیکنه",
-    "طاهر آباد نرفتی؟",
-    "فردا میبینمت",
-    "فرانتت قشنگ بود احسنت",
-    "فردا بیا سالن"
-  ];
+
   @override
   List<Widget>? buildActions(BuildContext context) {
     return [
@@ -75,22 +39,21 @@ class CustomSearch_Chat extends SearchDelegate {
 
     return ListView.separated(
       itemCount: matchQuery.length,
-      itemBuilder: (context, index) =>
-          InkWell(
-              onTap: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                      builder: (context) => Chat_Private(
-                        image: DataImage[index],
-                        name: title[index],
-                        Title: SubTitle[index],
-                        OfflineState: index % 3 == 0
-                            ? "Online"
-                            : "Offline",
+      itemBuilder: (context, index) => InkWell(
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                  builder: (context) => Chat_Private(
+                        data: data = {
+                          'name': title[index],
+                          'title': SubTitle[index],
+                          'image': DataImage[index],
+                          'offlinestate': index % 3 == 0 ? "Online" : "Offline",
+                        },
                       )),
-                );
-              },
-              child: ChatItem(index, title)),
+            );
+          },
+          child: ChatItem(index, title)),
       separatorBuilder: (context, index) => Divider(),
     );
   }
@@ -107,29 +70,28 @@ class CustomSearch_Chat extends SearchDelegate {
 
     return ListView.separated(
       itemCount: matchQuery.length,
-      itemBuilder: (context, index) =>
-         InkWell(
-           onTap: () {
-             FocusScope.of(context).unfocus();
-             Navigator.of(context).push(
-               MaterialPageRoute(
-                   builder: (context) => Chat_Private(
-                     image: DataImage[index],
-                     name: title[index],
-                     Title: SubTitle[index],
-                     OfflineState: index % 3 == 0
-                         ? "Online"
-                         : "Offline",
-                   )),
-             );
-           },
-             child: ChatItem(index, title)),
+      itemBuilder: (context, index) => InkWell(
+          onTap: () {
+            FocusScope.of(context).unfocus();
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                  builder: (context) => Chat_Private(
+                        data: data = {
+                          'name': title[index],
+                          'title': SubTitle[index],
+                          'image': DataImage[index],
+                          'offlinestate': index % 3 == 0 ? "Online" : "Offline",
+                        },
+                      )),
+            );
+          },
+          child: ChatItem(index, title)),
       separatorBuilder: (context, index) => Divider(),
     );
   }
 }
 
-Widget ChatItem(int index,List Title) {
+Widget ChatItem(int index, List Title) {
   return Padding(
     padding: const EdgeInsets.only(top: 15, bottom: 10),
     child: Container(
@@ -187,6 +149,7 @@ Widget ChatItem(int index,List Title) {
     ),
   );
 }
+
 Widget getBoxMessage(String CountMessage) {
   return Container(
     width: 35,
@@ -198,6 +161,7 @@ Widget getBoxMessage(String CountMessage) {
     child: Center(child: Text(CountMessage)),
   );
 }
+
 Widget getBoxOnline() {
   return Positioned(
     top: 8,

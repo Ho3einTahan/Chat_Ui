@@ -26,7 +26,7 @@ class _Storyview_PageState extends State<Storyview_Page> {
   int index = 0;
   String Image = "";
   String Name = "";
-
+  Icon Play = Icon(Icons.pause, color: Colors.black, size: 26);
   @override
   void initState() {
     // TODO: implement initState
@@ -42,8 +42,7 @@ class _Storyview_PageState extends State<Storyview_Page> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
-          child: Appbar_StoryView(Name: Name, Image: Image), preferredSize: Size(20, 60)),
+      appBar:AppBarStory(),
       body: Stack(
         alignment: Alignment.bottomCenter,
         children: [
@@ -52,10 +51,11 @@ class _Storyview_PageState extends State<Storyview_Page> {
               onComplete: () {
                 if (index + 1 < MainStoryItem.length) {
                   controller.previous();
-                    index = index + 1;
-                    Image = DataImage[index];
-                    Name = title[index];
-
+                  index = index + 1;
+                  Image = DataImage[index];
+                  Name = title[index];
+                  setState(() {
+                  });
                 } else {
                   Navigator.pop(context);
                 }
@@ -66,6 +66,58 @@ class _Storyview_PageState extends State<Storyview_Page> {
           SendBox(),
         ],
       ),
+    );
+  }
+  PreferredSizeWidget AppBarStory(){
+    return AppBar(
+      elevation: 0,
+      backgroundColor: Colors.transparent,
+      leadingWidth: 150,
+      leading: Row(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: CircleAvatar(
+              backgroundImage: AssetImage("images/${Image}.jpg"),
+            ),
+          ),
+          Text(
+            Name,
+            style: TextStyle(color: Colors.black,fontSize: 12),
+          ),
+        ],
+      ),
+      actions: [
+        IconButton(
+            onPressed: () {
+              if (Play.icon == Icons.pause) {
+                setState(() {
+                  Play = Icon(Icons.play_arrow, color: Colors.black, size: 26);
+                });
+                controller.pause();
+              } else {
+                setState(() {
+                  Play = Icon(Icons.pause, color: Colors.black, size: 26);
+                });
+                controller.play();
+              }
+            },
+            icon: Play),
+        IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+            Play = Play.icon == Icons.pause
+                ? Icon(Icons.pause, color: Colors.black, size: 26)
+                : Icon(Icons.pause, color: Colors.black, size: 26);
+          },
+          icon: Icon(Icons.close, size: 26, color: Colors.black),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(right: 5),
+          child: Icon(CupertinoIcons.ellipsis_vertical,
+              color: Colors.black, size: 26),
+        ),
+      ],
     );
   }
 }

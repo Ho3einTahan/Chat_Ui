@@ -10,7 +10,7 @@ class BottomNavPrimary extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-          height: 110,
+          height: 95,
           decoration: BoxDecoration(
             color: Colors.white,
             boxShadow: [
@@ -23,7 +23,7 @@ class BottomNavPrimary extends StatelessWidget {
           ),
           width: double.infinity,
           child: Padding(
-            padding: EdgeInsets.only(left: 60, right: 60, bottom: 30),
+            padding: EdgeInsets.only(left: 50, right: 50, bottom: 20,top: 5),
             child: Container(
               decoration: BoxDecoration(
                 color: Colors.grey.shade200,

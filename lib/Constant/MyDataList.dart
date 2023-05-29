@@ -70,9 +70,11 @@ List<String> CountMessage = [
   "3",
   "2",
   "12",
-  "100",
-  "5",
-  "9",
-  "1",
-  "12"
+  "100"
 ];
+Map<String, String> data = {
+  'image': "",
+  'title': "",
+  'name': "",
+  'offlinestate': ""
+};

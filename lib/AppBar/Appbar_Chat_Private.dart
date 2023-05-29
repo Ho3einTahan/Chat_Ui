@@ -2,7 +2,7 @@ import 'package:chat_ui/main.dart';
 import 'package:flutter/material.dart';
 
 PreferredSizeWidget AppBar_Chat(
-    BuildContext context, String name, String image, String OfflineState) {
+    BuildContext context,Map<String,String> data) {
   return AppBar(
     elevation: 0,
     backgroundColor: Color(0xffeee8e8),
@@ -25,7 +25,7 @@ PreferredSizeWidget AppBar_Chat(
       child: Column(
         children: [
           Text(
-            name,
+            data['name'].toString(),
             style: TextStyle(
               color: Colors.black,
               fontWeight: FontWeight.w800,
@@ -42,7 +42,7 @@ PreferredSizeWidget AppBar_Chat(
             ),
             child: Center(
                 child: Text(
-              OfflineState,
+              data['offlinestate'].toString(),
               style: TextStyle(
                 color: Colors.green.shade300,
               ),
@@ -56,7 +56,7 @@ PreferredSizeWidget AppBar_Chat(
         padding: const EdgeInsets.only(top: 25, bottom: 25, right: 10),
         child: CircleAvatar(
           radius: 40,
-          backgroundImage: AssetImage("images/${image}.jpg"),
+          backgroundImage: AssetImage("images/${data['image'].toString()}.jpg"),
         ),
       ),
     ],

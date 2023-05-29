@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../AppBar/AppBarPrimary.dart';
 import '../BottomNav/FloatingActionButton.dart';
 import '../Constant/MyDataList.dart';
@@ -65,12 +66,14 @@ class Chat_Primary extends StatelessWidget {
                               Navigator.of(context).push(
                                 MaterialPageRoute(
                                     builder: (context) => Chat_Private(
-                                          image: DataImage[index],
-                                          name: title[index],
-                                          Title: SubTitle[index],
-                                          OfflineState: index % 3 == 0
-                                              ? "Online"
-                                              : "Offline",
+                                          data: data = {
+                                            'image': DataImage[index],
+                                            'title': SubTitle[index],
+                                            'name': title[index],
+                                            'offlinestate': index % 3 == 0
+                                                ? "online"
+                                                : "offline"
+                                          },
                                         )),
                               );
                             },
@@ -173,4 +176,3 @@ class Chat_Primary extends StatelessWidget {
     );
   }
 }
-

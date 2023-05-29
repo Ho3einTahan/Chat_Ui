@@ -5,45 +5,47 @@ import 'package:flutter/material.dart';
 import 'package:custom_clippers/custom_clippers.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../Constant/MyDataList.dart';
 
 class Chat_Private extends StatefulWidget {
   Chat_Private(
-      {Key? key, required this.name, required this.image, required this.Title,required this.OfflineState})
+      {Key? key,
+     required this.data})
       : super(key: key);
-  String? name;
-  String? image;
-  String? Title;
-  String? OfflineState;
+  Map<String,String>? data;
   @override
   State<Chat_Private> createState() => _Chat_PrivateState();
 }
 
 class _Chat_PrivateState extends State<Chat_Private> {
   Color MickColor = Colors.grey.shade100;
-  String name = "";
-  String image = "";
-  String title = "";
-  List titleList = [];
-  String OfflineState="";
+  List<String> titleList = [];
+  int? result;
+  int? itemcount;
+  List<String> loaddata = [];
+  Map<String,String> data={};
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    name = widget.name!;
-    image = widget.image!;
-    title = widget.Title!;
-    titleList = [title];
-    OfflineState=widget.OfflineState!;
+    data=widget.data!;
+    titleList.add(data["title"].toString());
   }
 
   Widget build(BuildContext context) {
     final BottomNavProvider = Provider.of<BottomNavProvider_Private>(context);
     final heightScreen = MediaQuery.of(context).size.height;
     BottomNavProvider.titleList = titleList;
-    return Scaffold(
+    BottomNavProvider.LoadData();
+    loaddata=BottomNavProvider.loaddata;
+    BottomNavProvider.itemCount();
+    itemcount=BottomNavProvider.itemcount;
+     return Scaffold(
       bottomNavigationBar: BottomNavPrivate(BottomNavProvider),
       backgroundColor: Color(0xffececec),
-      appBar: AppBar_Chat(context, name, image,OfflineState),
+      appBar: AppBar_Chat(context,data),
       body: SafeArea(
         child: Container(
           width: double.infinity,
@@ -56,16 +58,16 @@ class _Chat_PrivateState extends State<Chat_Private> {
             ),
           ),
           child: ListView.builder(
-            controller: BottomNavProvider.controller,
-            itemCount: BottomNavProvider.titleList.length,
-            itemBuilder: (context, index) {
-              return Column(
-                children: [
-                  SendMessage(titleList[index]),
-                  ResendMessage(),
-                ],
-              );
-            },
+          controller: BottomNavProvider.controller,
+          itemCount: itemcount,
+          itemBuilder: (context, index) {
+            return Column(
+              children: [
+                SendMessage(loaddata[index]),
+                ResendMessage(),
+              ],
+            );
+          },
           ),
         ),
       ),
@@ -127,10 +129,10 @@ class _Chat_PrivateState extends State<Chat_Private> {
       padding:
           EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
       child: Container(
-        height: 100,
+        height: 92,
         color: Colors.white,
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+          padding: const EdgeInsets.only(left: 12,right: 12,top: 12 ,bottom: 24),
           child: Row(
             children: [
               Expanded(
@@ -190,4 +192,6 @@ class _Chat_PrivateState extends State<Chat_Private> {
       ),
     );
   }
+
+
 }
